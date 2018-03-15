@@ -1,0 +1,19 @@
+{
+  "name": "news-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/preaksneview/news-scraper.git"
+  },
+  "author": "Jordan Boggs <boggsjp@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/preaksneview/news-scraper/issues"
+  },
+  "homepage": "https://github.com/preaksneview/news-scraper#readme"
+}
