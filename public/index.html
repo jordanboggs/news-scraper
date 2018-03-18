@@ -9,13 +9,69 @@
   <script src         = "https://code.jquery.com/jquery-3.3.1.min.js"
           integrity   = "sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
           crossorigin = "anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body>
   <button id="scrape">Scrape</button>
+  <div id="app">
+    <headline-list :headlines="theHeadlines"></headline-list>
+  </div>
 </body>
+<!-- Scripts -->
 <script>
-  $("#scrape").on("click", function(){
-    $.get("/scrape")
-  });
+/*
+ * Scrape function for button
+ */
+
+$("#scrape").on("click", function(){
+  $.get("/scrape")
+});
+</script>
+<script>
+/*
+ * VUE
+ */
+Vue.component('headline-list', {
+  template:
+  `
+  <div class="headline-list">
+    <ul>
+      <headline-list-item
+        v-for="(headline, i) in headlines"
+        :headline="headline"
+        :key="headline._id">
+      </headline-list-item>
+    </ul>
+  </div>
+  `,
+  props: ['headlines']
+});
+
+Vue.component('headline-list-item', {
+  template:
+  `
+  <div class="headline-list__item">
+    <li>
+      <a :href="headline.link" target="_blank">
+        {{ headline.title }}
+      </a>
+    </li>
+  </div>
+  `,
+  props: ['headline']
+})
+
+const vm = new Vue({
+  el: "#app",
+  data: {
+    theHeadlines: []
+  },
+  mounted: function() {
+    $.getJSON('/headlines').done(function(data) {
+      vm.theHeadlines = data;
+    });
+  }
+})
+
 </script>
 </html>
