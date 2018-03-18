@@ -15,8 +15,8 @@ function scrape(req, res) {
       let result = {};
   
       // Add title and link from each article
-      result.title = $(this).attr("href");
-      result.link = $(this).text();
+      result.link = $(this).attr("href");
+      result.title = $(this).text();
   
       // Create a new Headline from result object
       db.Headline.create(result)
