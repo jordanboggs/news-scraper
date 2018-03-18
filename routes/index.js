@@ -10,4 +10,4 @@ module.exports = function(app) {
     let name = file.substr(0, file.indexOf('.'));
     require('./' + name)(app);
   });
-}
+};

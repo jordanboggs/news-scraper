@@ -3,13 +3,6 @@ const bodyParser = require('body-parser');
 const logger     = require('morgan');
 const mongoose   = require('mongoose');
 
-// Scraping tools
-const axios = require('axios');
-const cheerio = require('cheerio');
-
-// Require all models
-const db = require('./models');
-
 const PORT = process.env.PORT || 3000;
 
 // Initialize express
@@ -26,6 +19,9 @@ app.use(express.static("public"));
 // Tell mongoose to return Promises
 mongoose.Promise = Promise;
 mongoose.connect("mongodb://localhost/newsScraper");
+
+// Require all models
+var db = require("./models");
 
 // Routes
 // Include all routes
