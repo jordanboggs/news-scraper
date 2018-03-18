@@ -6,6 +6,7 @@ const cheerio = require('cheerio');
 const db = require('../models');
 
 module.exports = function(app) {
+  // Scrape Polygon.com to populate database with headlines and links
   app.get("/scrape", function(req, res) {
     axios.get("http://www.polygon.com")
     .then(function(response) {
@@ -30,6 +31,13 @@ module.exports = function(app) {
 
       // If successful
       res.send("Success");
-    })
-  })
+    });
+  });
+
+  // Populate page with Headlines
+  app.get("/headlines", function(req, res) {
+    db.Headline.find({})
+    .then((dbHeadline) => res.json(dbHeadline))
+    .catch((err) => res.json(err));
+  });
 };
