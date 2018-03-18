@@ -15,4 +15,14 @@ module.exports = function(app) {
     .then((dbHeadline) => res.json(dbHeadline))
     .catch((err) => res.json(err));
   });
+
+  // Route for grabbing specific Headline by id, populate with its note
+  app.get("/headlines/:id", function(req, res) {
+    db.Headline.find({
+      _id: req.params.id
+    })
+    .populate("note")
+    .then((dbHeadline) => res.json(dbHeadline))
+    .catch((err) => res.json(err));
+  });
 };

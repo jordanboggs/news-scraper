@@ -12,10 +12,10 @@ const HeadlineSchema = new Schema({
     required: true,
     unique: true
   },
-  // note: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "Note"
-  // }
+  note: {
+    type: Schema.Types.ObjectId,
+    ref: "Note"
+  }
 });
 
 const Headline = mongoose.model("Headline", HeadlineSchema);
