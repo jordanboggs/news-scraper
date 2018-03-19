@@ -28,6 +28,7 @@ Vue.component('headline-list-item', {
          target="_blank">
         {{ headline.title }}
       </a>
+      <p>{{ headline.description }}</p>
       <div @click="populateNote(headline.id, i)">
         <button>Notes</button>
       </div>
