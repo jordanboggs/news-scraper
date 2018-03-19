@@ -3,18 +3,21 @@ const Schema   = mongoose.Schema;
 
 const HeadlineSchema = new Schema({
   title: {
-    type: String,
+    type    : String,
     required: true,
-    unique: true
+    unique  : true
   },
   link: {
-    type: String,
+    type    : String,
     required: true,
-    unique: true
+    unique  : true
+  },
+  description: {
+    type: String
   },
   note: {
     type: Schema.Types.ObjectId,
-    ref: "Note"
+    ref : "Note"
   }
 });
 
