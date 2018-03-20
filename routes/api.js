@@ -25,4 +25,22 @@ module.exports = function(app) {
     .then((dbHeadline) => res.json(dbHeadline))
     .catch((err) => res.json(err));
   });
+
+  // Route for posting a Note associated with a Headline
+  app.post("/headlines/:id", function(req, res) {
+    db.Note.create(req.body)
+    .then(function(dbNote) {
+      return db.Headline.findOneAndUpdate({
+        _id: req.params.id,
+      }, {
+        note: dbNote._id
+      }, {
+        new: true
+      });
+    })
+    .then(function(dbHeadline) {
+      res.json(dbHeadline);
+    })
+    .catch((err) => res.json(err));
+  });
 };
