@@ -7,13 +7,14 @@ Vue.component('headline-list', {
       <headline-list-item
         v-for="(headline, i) in headlines"
         :headline="headline"
+        :notes="notes"
         :key="headline._id"
         :i="i">
       </headline-list-item>
     </ul>
   </div>
   `,
-  props: ['headlines']
+  props: ['headlines', 'notes']
 });
 
 // <headline-list-item> Component
@@ -28,15 +29,25 @@ Vue.component('headline-list-item', {
         {{ headline.title }}
       </a>
       <p>{{ headline.description }}</p>
-      <div @click="showNotes(i)">
+      <div @click="getNotes(headline._id); showNotes(i)">
         <button>Notes</button>
       </div>
-      <headline-note :headline="headline" v-if="isCurrentComponent()"></headline-note>
+      <headline-note :notes="notes" :headline="headline" v-if="isCurrentComponent()"></headline-note>
     </li>
   </div>
   `,
-  props: ['headline', 'i', 'currentComponent'],
+  props: ['headline', 'i', 'currentComponent', 'notes'],
   methods: {
+    getNotes: function(id) {
+      $.ajax({
+        method: "GET",
+        url: "/headlines/" + id
+      })
+      .then(function(data) {
+        vm.notes = data[0].notes;
+        console.log(vm.notes);
+      })
+    },
     showNotes: function(i) {
       vm.currentComponent = i;
       this.isCurrentComponent();
@@ -51,8 +62,14 @@ Vue.component('headline-list-item', {
 Vue.component('headline-note', {
   template:
   `
-  <div id="notes" class="headline-note">
-    <form>
+  <div class="headline-note">
+    <ul>
+      <li v-for="note in notes">
+        <p>{{ note.title }}</p>
+        <p>{{ note.body }}</p>
+      </li>
+    </ul>
+    <form id="note-form">
       <label for="note-title">Note title</label>
       <input type="text" name="note-title" id="note-title">
       <label for="note-body">Note body</label>
@@ -61,7 +78,7 @@ Vue.component('headline-note', {
     </form>
   </div>
   `,
-  props: ['headline'],
+  props: ['headline', 'notes'],
   methods: {
     postNote: function(headline) {
       let id = headline._id;
@@ -76,8 +93,7 @@ Vue.component('headline-note', {
         data: noteData
       })
       .then(function(response) {
-        res.json(response);
-        $("#notes").empty();
+        $("#note-form").empty();
       });
     }
   }
@@ -87,7 +103,8 @@ const vm = new Vue({
   el: "#app",
   data: {
     theHeadlines: [],
-    currentComponent: null
+    currentComponent: null,
+    notes: []
   },
   mounted: function() {
     $.getJSON('/headlines').done(function(data) {
