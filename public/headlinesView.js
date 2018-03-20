@@ -34,7 +34,7 @@ Vue.component('headline-list-item', {
       <div @click="showNotes(i)">
         <button>Notes</button>
       </div>
-      <p v-if="isCurrentComponent()">Notes are showing</p>
+      <headline-note v-if="isCurrentComponent()"></headline-note>
     </li>
   </div>
   `,
@@ -51,6 +51,12 @@ Vue.component('headline-list-item', {
 })
 
 // <headline-note> Component
+Vue.component('headline-note', {
+  template:
+  `
+  <p>Notes displaying</p>
+  `
+});
 
 const vm = new Vue({
   el: "#app",
