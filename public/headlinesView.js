@@ -1,6 +1,7 @@
 /*
  * VUE
  */
+// <headline-list> Component
 Vue.component('headline-list', {
   template:
   `
@@ -18,6 +19,7 @@ Vue.component('headline-list', {
   props: ['headlines']
 });
 
+// <headline-list-item> Component
 Vue.component('headline-list-item', {
   template:
   `
@@ -29,31 +31,32 @@ Vue.component('headline-list-item', {
         {{ headline.title }}
       </a>
       <p>{{ headline.description }}</p>
-      <div @click="populateNote(headline.id, i)">
+      <div @click="showNotes(i)">
         <button>Notes</button>
       </div>
+      <p v-if="isCurrentComponent()">Notes are showing</p>
     </li>
   </div>
   `,
-  props: ['headline', 'i'],
+  props: ['headline', 'i', 'currentComponent'],
   methods: {
-    populateNote: function(id, i) {
-      $.ajax({
-        method: 'GET',
-        url: '/headlines/' + id
-      })
-      .then(function(data) {
-        console.log("note:", data.note);
-        // Create a new child component for displaying/adding notes
-      });
+    showNotes: function(i) {
+      vm.currentComponent = i;
+      this.isCurrentComponent();
+    },
+    isCurrentComponent: function() {
+      return vm.currentComponent === this.i;
     }
   }
 })
 
+// <headline-note> Component
+
 const vm = new Vue({
   el: "#app",
   data: {
-    theHeadlines: []
+    theHeadlines: [],
+    currentComponent: null
   },
   mounted: function() {
     $.getJSON('/headlines').done(function(data) {

@@ -17,6 +17,7 @@ const HeadlineSchema = new Schema({
   },
   note: {
     type: Schema.Types.ObjectId,
+    // default: "No notes",
     ref : "Note"
   }
 });
