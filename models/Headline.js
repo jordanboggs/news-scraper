@@ -15,11 +15,13 @@ const HeadlineSchema = new Schema({
   description: {
     type: String
   },
-  note: {
-    type: Schema.Types.ObjectId,
-    // default: "No notes",
-    ref : "Note"
-  }
+  notes: [
+    {
+      type: Schema.Types.ObjectId,
+      // default: "No notes",
+      ref : "Note"
+    }
+  ]
 });
 
 const Headline = mongoose.model("Headline", HeadlineSchema);

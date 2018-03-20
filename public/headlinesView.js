@@ -78,7 +78,7 @@ Vue.component('headline-note', {
       .then(function(response) {
         res.json(response);
         $("#notes").empty();
-      })
+      });
     }
   }
 });

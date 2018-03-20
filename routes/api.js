@@ -21,7 +21,7 @@ module.exports = function(app) {
     db.Headline.find({
       _id: req.params.id
     })
-    .populate("note")
+    .populate("notes")
     .then((dbHeadline) => res.json(dbHeadline))
     .catch((err) => res.json(err));
   });
@@ -33,7 +33,9 @@ module.exports = function(app) {
       return db.Headline.findOneAndUpdate({
         _id: req.params.id,
       }, {
-        note: dbNote._id
+        $push: {
+          notes: dbNote._id
+        }
       }, {
         new: true
       });
