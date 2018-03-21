@@ -32,7 +32,9 @@ Vue.component('headline-list-item', {
       <div @click="getNotes(headline._id); showNotes(i)">
         <button>Notes</button>
       </div>
-      <headline-note :notes="notes" :headline="headline" v-if="isCurrentComponent()"></headline-note>
+      <headline-note :notes="notes" 
+                     :headline="headline" 
+                     v-if="isCurrentComponent()"></headline-note>
     </li>
   </div>
   `,
@@ -45,7 +47,6 @@ Vue.component('headline-list-item', {
       })
       .then(function(data) {
         vm.notes = data[0].notes;
-        console.log(vm.notes);
       })
     },
     showNotes: function(i) {
@@ -67,6 +68,7 @@ Vue.component('headline-note', {
       <li v-for="note in notes">
         <p>{{ note.title }}</p>
         <p>{{ note.body }}</p>
+        <button @click.prevent="deleteNote(note._id)">Delete</button>
       </li>
     </ul>
     <form id="note-form">
@@ -94,6 +96,15 @@ Vue.component('headline-note', {
       })
       .then(function(response) {
         $("#note-form").empty();
+      });
+    },
+    deleteNote: function(id) {
+      $.ajax({
+        method: "POST",
+        url: "/notes/" + id
+      })
+      .then(function() {
+        vm.currentComponent = null;
       });
     }
   }

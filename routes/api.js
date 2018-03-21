@@ -45,4 +45,13 @@ module.exports = function(app) {
     })
     .catch((err) => res.json(err));
   });
+
+  // Route for deleting a Note
+  app.post("/notes/:id", function(req, res) {
+    db.Note.deleteOne({
+      _id: req.params.id
+    })
+    .then((dbNotes) => res.json(dbNotes))
+    .catch((err) => res.json(err));
+  });
 };
