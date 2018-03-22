@@ -26,8 +26,8 @@
   </header>
   <main class="container">
     <div class="jumbotron">
-      <h2 class="display-4">All the video game news that's fit to print</h2>
-      <p class="lead">We've explored the web in search of the finest, most up-to-date video game news out there. Feel free to browse to your heart's content! We welcome you to leave comments: just hit the Notes button below an article.</p>
+      <h2 class="display-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+      <p class="lead">Integer vitae nunc ultrices, gravida nulla vitae, tincidunt felis. Etiam pellentesque est quis tempus ultrices. Duis sollicitudin, nisl eu cursus consequat, lacus nibh rutrum felis, eu mollis sem quam eu mauris. Sed rutrum placerat sem ut eleifend. Nunc sodales convallis vestibulum. Sed placerat justo ut lectus feugiat suscipit. Nunc velit lacus, finibus ut turpis et, malesuada posuere enim. Pellentesque sollicitudin, magna vel ullamcorper aliquet, purus eros tempor metus, a bibendum risus justo imperdiet orci.</p>
     </div>
     <div id="app">
       <headline-list :headlines="theHeadlines" :notes="notes"></headline-list>
@@ -35,14 +35,14 @@
   </main>
 </body>
 <!-- Scripts -->
-<script>
-/*
- * Scrape function for button
- */
-
-$("#scrape").on("click", function(){
-  $.get("/scrape")
-});
-</script>
 <script src="./headlinesView.js"></script>
+<script>
+  /*
+    * Scrape function for button
+    */
+  
+  $("#scrape").on("click", function(){
+    $.get("/scrape");
+  });
+</script>
 </html>

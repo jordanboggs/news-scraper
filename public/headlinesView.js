@@ -67,7 +67,7 @@ Vue.component('headline-note', {
   <div class="headline-note">
     <ul>
       <div v-for="note in notes">
-        <p>{{ note.title }}</p>
+        <p><strong>{{ note.title }}</strong></p>
         <p>{{ note.body }}</p>
         <button class="btn btn-danger" 
                 @click.prevent="deleteNote(note._id)">
