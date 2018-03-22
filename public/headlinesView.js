@@ -50,7 +50,12 @@ Vue.component('headline-list-item', {
       })
     },
     showNotes: function(i) {
-      vm.currentComponent = i;
+      if (vm.currentComponent === null) {
+        vm.currentComponent = i;
+      }
+      else {
+        vm.currentComponent = null;
+      }
       this.isCurrentComponent();
     },
     isCurrentComponent: function() {
