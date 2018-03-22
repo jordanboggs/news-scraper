@@ -71,12 +71,12 @@ Vue.component('headline-note', {
         <button @click.prevent="deleteNote(note._id)">Delete</button>
       </li>
     </ul>
-    <form id="note-form">
+    <form id="note-form" class="form-group">
       <label for="note-title">Note title</label>
-      <input type="text" name="note-title" id="note-title">
+      <input class="form-control" type="text" name="note-title" id="note-title">
       <label for="note-body">Note body</label>
-      <input type="text" name="note-body" id="note-body">
-      <button @click.prevent="postNote(headline)">Submit</button>
+      <textarea class="form-control" type="textarea" name="note-body" id="note-body" rows="5"></textarea>
+      <button class="btn btn-primary" @click.prevent="postNote(headline)">Submit</button>
     </form>
   </div>
   `,
@@ -96,6 +96,7 @@ Vue.component('headline-note', {
       })
       .then(function(response) {
         $("#note-form").empty();
+        vm.currentComponent = null;
       });
     },
     deleteNote: function(id) {
