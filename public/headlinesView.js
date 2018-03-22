@@ -3,7 +3,6 @@ Vue.component('headline-list', {
   template:
   `
   <div class="headline-list">
-    <ul>
       <headline-list-item
         v-for="(headline, i) in headlines"
         :headline="headline"
@@ -11,7 +10,6 @@ Vue.component('headline-list', {
         :key="headline._id"
         :i="i">
       </headline-list-item>
-    </ul>
   </div>
   `,
   props: ['headlines', 'notes']
@@ -22,7 +20,6 @@ Vue.component('headline-list-item', {
   template:
   `
   <div class="headline-list__item">
-    <li>
       <a :href="headline.link" 
          :id="headline._id" 
          target="_blank">
@@ -30,12 +27,11 @@ Vue.component('headline-list-item', {
       </a>
       <p>{{ headline.description }}</p>
       <div @click="getNotes(headline._id); showNotes(i)">
-        <button>Notes</button>
+        <button class="btn btn-primary">Notes</button>
       </div>
       <headline-note :notes="notes" 
                      :headline="headline" 
                      v-if="isCurrentComponent()"></headline-note>
-    </li>
   </div>
   `,
   props: ['headline', 'i', 'currentComponent', 'notes'],
@@ -70,18 +66,21 @@ Vue.component('headline-note', {
   `
   <div class="headline-note">
     <ul>
-      <li v-for="note in notes">
+      <div v-for="note in notes">
         <p>{{ note.title }}</p>
         <p>{{ note.body }}</p>
-        <button @click.prevent="deleteNote(note._id)">Delete</button>
-      </li>
+        <button class="btn btn-danger" 
+                @click.prevent="deleteNote(note._id)">
+          Delete
+        </button>
+      </div>
     </ul>
     <form id="note-form" class="form-group">
       <label for="note-title">Note title</label>
       <input class="form-control" type="text" name="note-title" id="note-title">
       <label for="note-body">Note body</label>
       <textarea class="form-control" type="textarea" name="note-body" id="note-body" rows="5"></textarea>
-      <button class="btn btn-primary" @click.prevent="postNote(headline)">Submit</button>
+      <button class="btn btn-success" @click.prevent="postNote(headline)">Submit</button>
     </form>
   </div>
   `,

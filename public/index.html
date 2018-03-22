@@ -20,10 +20,19 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body>
-  <button id="scrape">Scrape</button>
-  <div id="app">
-    <headline-list :headlines="theHeadlines" :notes="notes"></headline-list>
-  </div>
+  <header class="navbar navbar-dark bg-primary">
+    <h1 class="navbar-brand">News Scraper</h1>
+    <button class="btn btn-danger" id="scrape">Scrape</button>
+  </header>
+  <main class="container">
+    <div class="jumbotron">
+      <h2 class="display-4">All the video game news that's fit to print</h2>
+      <p class="lead">We've explored the web in search of the finest, most up-to-date video game news out there. Feel free to browse to your heart's content! We welcome you to leave comments: just hit the Notes button below an article.</p>
+    </div>
+    <div id="app">
+      <headline-list :headlines="theHeadlines" :notes="notes"></headline-list>
+    </div>
+  </main>
 </body>
 <!-- Scripts -->
 <script>
