@@ -5,19 +5,21 @@ const cheerio = require('cheerio');
 // Require all models
 const db = require('../models');
 
-// Scrape Polygon.com to populate database with headlines and links
+// Scrape waypoint.vice.com to populate database with headlines, descriptions
+// and links
 function scrape(req, res) {
-  axios.get("http://www.polygon.com")
+  axios.get("https://waypoint.vice.com/en_us")
   .then(function(response) {
+    // Set up Cheerio
     const $ = cheerio.load(response.data);
-  
-    $("a[data-analytics-link='article']").each(function(i, element) {
+    $("a.grid__wrapper__card").each(function(i, element) {
       let result = {};
-  
-      // Add title and link from each article
-      result.link = $(this).attr("href");
-      result.title = $(this).text();
-  
+      
+      // Populate result object
+      result.link       = "https://waypoint.vice.com" + $(element).attr("href");
+      result.title      = $(element).find("h2").text();
+      result.description = $(element).find(".grid__wrapper__card__text__summary").text();
+
       // Create a new Headline from result object
       db.Headline.create(result)
       .then(function(dbHeadline) {
@@ -27,7 +29,7 @@ function scrape(req, res) {
         return res.json(err);
       });
     });
-  });
+  }); 
 }
 
 module.exports = scrape;
