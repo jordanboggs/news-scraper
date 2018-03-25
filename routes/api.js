@@ -11,7 +11,7 @@ module.exports = function(app) {
 
   // Populate page with Headlines
   app.get("/headlines", function(req, res) {
-    db.Headline.find({})
+    db.Headline.find({}).sort({created_at: -1})
     .then((dbHeadline) => res.json(dbHeadline))
     .catch((err) => res.json(err));
   });

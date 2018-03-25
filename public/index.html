@@ -20,20 +20,29 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body>
-  <button id="scrape">Scrape</button>
-  <div id="app">
-    <headline-list :headlines="theHeadlines" :notes="notes"></headline-list>
-  </div>
+  <header class="navbar navbar-dark bg-primary">
+    <h1 class="navbar-brand">News Scraper</h1>
+    <button class="btn btn-danger" id="scrape">Scrape</button>
+  </header>
+  <main class="container">
+    <div class="jumbotron">
+      <h2 class="display-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+      <p class="lead">Integer vitae nunc ultrices, gravida nulla vitae, tincidunt felis. Etiam pellentesque est quis tempus ultrices. Duis sollicitudin, nisl eu cursus consequat, lacus nibh rutrum felis, eu mollis sem quam eu mauris. Sed rutrum placerat sem ut eleifend. Nunc sodales convallis vestibulum. Sed placerat justo ut lectus feugiat suscipit. Nunc velit lacus, finibus ut turpis et, malesuada posuere enim. Pellentesque sollicitudin, magna vel ullamcorper aliquet, purus eros tempor metus, a bibendum risus justo imperdiet orci.</p>
+    </div>
+    <div id="app">
+      <headline-list :headlines="theHeadlines" :notes="notes"></headline-list>
+    </div>
+  </main>
 </body>
 <!-- Scripts -->
-<script>
-/*
- * Scrape function for button
- */
-
-$("#scrape").on("click", function(){
-  $.get("/scrape")
-});
-</script>
 <script src="./headlinesView.js"></script>
+<script>
+  /*
+    * Scrape function for button
+    */
+  
+  $("#scrape").on("click", function(){
+    $.get("/scrape");
+  });
+</script>
 </html>

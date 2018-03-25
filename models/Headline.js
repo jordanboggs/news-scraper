@@ -21,7 +21,11 @@ const HeadlineSchema = new Schema({
       // default: "No notes",
       ref : "Note"
     }
-  ]
+  ],
+  created_at: { 
+    type    : Date,
+    required: true,
+    default : Date.now }
 });
 
 const Headline = mongoose.model("Headline", HeadlineSchema);
