@@ -16,9 +16,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve public folder as static directory
 app.use(express.static("public"));
 
+// Configure mongo for Heroku or dev environment
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScraper";
+
 // Tell mongoose to return Promises
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/newsScraper");
+mongoose.connect(MONGODB_URI, {
+  useMongoClient: true
+});
 
 // Require all models
 var db = require("./models");
