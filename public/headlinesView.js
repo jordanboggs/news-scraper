@@ -64,23 +64,23 @@ Vue.component('headline-list-item', {
 Vue.component('headline-note', {
   template:
   `
-  <div class="headline-note">
-    <ul>
-      <div v-for="note in notes">
+  <div class="headline-note border rounded">
+    <div v-for="note in notes">
+      <div class="col-sm headline-note__note-body border rounded">
         <p><strong>{{ note.title }}</strong></p>
         <p>{{ note.body }}</p>
-        <button class="btn btn-danger" 
+        <button class="headline-note__delete-button btn btn-danger" 
                 @click.prevent="deleteNote(note._id)">
           Delete
         </button>
       </div>
-    </ul>
+    </div>
     <form id="note-form" class="form-group">
       <label for="note-title">Note title</label>
       <input class="form-control" type="text" name="note-title" id="note-title">
       <label for="note-body">Note body</label>
       <textarea class="form-control" type="textarea" name="note-body" id="note-body" rows="5"></textarea>
-      <button class="btn btn-success" @click.prevent="postNote(headline)">Submit</button>
+      <button class="headline-note__submit-button btn btn-success" @click.prevent="postNote(headline)">Submit</button>
     </form>
   </div>
   `,
